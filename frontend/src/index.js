@@ -16,6 +16,7 @@ import reportWebVitals from "./reportWebVitals";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen.jsx";
+import LoginScreen from "./screens/LoginScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route index={true} path="/product/:id" element={<ProductScreen />} />
       <Route index={true} path="/cart" element={<CartScreen />} />
+      <Route index={true} path="/login" element={<LoginScreen />} />
     </Route>
   )
 );
