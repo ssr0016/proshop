@@ -21,10 +21,12 @@ import LoginScreen from "./screens/LoginScreen.jsx";
 import RegisterScreen from "./screens/RegisterScreen.jsx";
 import ShippingScreen from "./screens/ShippingScreen.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
 import PaymentScreen from "./screens/PaymentScreen.jsx";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen.jsx";
 import OrderScreen from "./screens/OrderScreen.jsx";
 import ProfileScreen from "./screens/ProfileScreen.jsx";
+import OrderListScreen from "./screens/admin/OrderListScreen.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,12 +37,21 @@ const router = createBrowserRouter(
       <Route index={true} path="/login" element={<LoginScreen />} />
       <Route index={true} path="/register" element={<RegisterScreen />} />
 
-      <Route path="" element={<PrivateRoute />} />
-      <Route index={true} path="/shipping" element={<ShippingScreen />} />
-      <Route index={true} path="/payment" element={<PaymentScreen />} />
-      <Route index={true} path="/placeorder" element={<PlaceOrderScreen />} />
-      <Route index={true} path="/order/:id" element={<OrderScreen />} />
-      <Route index={true} path="/profile" element={<ProfileScreen />} />
+      <Route path="" element={<PrivateRoute />}>
+        <Route index={true} path="/shipping" element={<ShippingScreen />} />
+        <Route index={true} path="/payment" element={<PaymentScreen />} />
+        <Route index={true} path="/placeorder" element={<PlaceOrderScreen />} />
+        <Route index={true} path="/order/:id" element={<OrderScreen />} />
+        <Route index={true} path="/profile" element={<ProfileScreen />} />
+      </Route>
+
+      <Route path="" element={<AdminRoute />}>
+        <Route
+          index={true}
+          path="/admin/orderlist"
+          element={<OrderListScreen />}
+        />
+      </Route>
     </Route>
   )
 );
