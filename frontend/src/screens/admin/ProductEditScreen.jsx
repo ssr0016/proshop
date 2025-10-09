@@ -4,11 +4,11 @@ import { Form, Button } from "react-bootstrap";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   useUpdateProductMutation,
   useGetProductDetailsQuery,
+  useUploadProductImageMutation,
 } from "../../slices/productsApiSlice";
 
 const ProductEditScreen = () => {
@@ -31,6 +31,9 @@ const ProductEditScreen = () => {
 
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
+
+  const [uploadProductImage, { isLoading: loadingUpload }] =
+    useUploadProductImageMutation();
 
   const navigate = useNavigate();
 
@@ -69,6 +72,18 @@ const ProductEditScreen = () => {
     }
   };
 
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
+    }
+  };
+
   return (
     <>
       <Link to="/admin/productlist" className="btn btn-light my-3">
@@ -103,7 +118,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            {/* <Form.Group controlId="image">
+            <Form.Group controlId="image">
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="text"
@@ -111,7 +126,13 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
-            </Form.Group> */}
+              <Form.Control
+                label="Choose File"
+                onChange={uploadFileHandler}
+                type="file"
+              ></Form.Control>
+              {loadingUpload && <Loader />}
+            </Form.Group>
 
             <Form.Group controlId="brand" className="my-2">
               <Form.Label>Brand</Form.Label>
