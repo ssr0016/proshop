@@ -1,12 +1,13 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
+  useUpdateProductMutation,
 } from "../../slices/productsApiSlice";
 
 const ProductListScreen = () => {
@@ -14,6 +15,9 @@ const ProductListScreen = () => {
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
+
+  const [updateProduct, { isLoading: loadingUpdate }] =
+    useUpdateProductMutation();
 
   const deleteHandler = (id) => {
     console.log(id);
@@ -27,6 +31,23 @@ const ProductListScreen = () => {
       } catch (error) {
         toast.error(error?.data?.message || error.error);
       }
+    }
+  };
+
+  const updateProductHandler = async (product) => {
+    const { name, price, image, brand, category, countInStock } = product;
+    try {
+      await updateProduct({
+        ...product,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        countInStock,
+      });
+    } catch (error) {
+      toast.error(error?.data?.message || error.error);
     }
   };
 
@@ -63,7 +84,7 @@ const ProductListScreen = () => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>{product.price}</td>
+                  <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
