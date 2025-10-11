@@ -16,12 +16,14 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "bootstrap": "^5.3.8",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.2",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "react-bootstrap": "^2.10.10"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
