@@ -45,6 +45,7 @@ const router = createBrowserRouter(
       <Route path="" element={<PrivateRoute />}>
         <Route index={true} path="/shipping" element={<ShippingScreen />} />
         <Route index={true} path="/payment" element={<PaymentScreen />} />
+        <Route index={true} path="/payment" element={<PaymentScreen />} />
         <Route index={true} path="/placeorder" element={<PlaceOrderScreen />} />
         <Route index={true} path="/order/:id" element={<OrderScreen />} />
         <Route index={true} path="/profile" element={<ProfileScreen />} />
@@ -59,6 +60,10 @@ const router = createBrowserRouter(
         <Route
           index={true}
           path="/admin/productlist"
+          element={<ProductListScreen />}
+        />
+        <Route
+          path="/admin/productlist/:pageNumber"
           element={<ProductListScreen />}
         />
         <Route
